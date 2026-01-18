@@ -180,3 +180,9 @@ func (c *Context) Engine() *Engine {
 func (c *Context) Message() any {
 	return c.message
 }
+
+// ClearMailbox clears all pending messages in this actor's mailbox.
+// Messages already dequeued for the current processing batch will still be processed.
+func (c *Context) ClearMailbox() {
+	c.engine.ClearMailbox(c.pid)
+}

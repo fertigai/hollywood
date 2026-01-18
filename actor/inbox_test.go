@@ -70,7 +70,8 @@ func (m MockProcesser) SendPriority(*PID, any, *PID) {}
 func (m MockProcesser) Invoke(envelopes []Envelope) {
 	m.processFunc(envelopes)
 }
-func (m MockProcesser) Shutdown() {}
+func (m MockProcesser) Shutdown()     {}
+func (m MockProcesser) ClearMailbox() {}
 
 func TestInboxStop(t *testing.T) {
 	inbox := NewInbox(10)

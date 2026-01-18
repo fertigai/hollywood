@@ -43,6 +43,7 @@ type Inboxer interface {
 	SendPriority(Envelope)
 	Start(Processer)
 	Stop() error
+	Clear()
 }
 
 type Inbox struct {
@@ -114,4 +115,9 @@ func (in *Inbox) Start(proc Processer) {
 func (in *Inbox) Stop() error {
 	atomic.StoreInt32(&in.procStatus, stopped)
 	return nil
+}
+
+// Clear removes all pending messages from the inbox.
+func (in *Inbox) Clear() {
+	in.rb.Clear()
 }

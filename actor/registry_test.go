@@ -15,6 +15,7 @@ func (p fooProc) Send(*PID, any, *PID)         {}
 func (p fooProc) SendPriority(*PID, any, *PID) {}
 func (p fooProc) Invoke([]Envelope)            {}
 func (p fooProc) Shutdown()                    {}
+func (p fooProc) ClearMailbox()                {}
 
 func TestGetRemoveAdd(t *testing.T) {
 	e, _ := NewEngine(NewEngineConfig())

@@ -209,6 +209,10 @@ func (s *streamWriter) Start() {
 	s.init()
 }
 
+func (s *streamWriter) ClearMailbox() {
+	s.inbox.Clear()
+}
+
 func lookupPIDs(m map[uint64]int32, pid *actor.PID, pids []*actor.PID) (int32, []*actor.PID) {
 	if pid == nil {
 		return 0, pids

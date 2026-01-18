@@ -127,3 +127,12 @@ func (rb *RingBuffer[T]) PopN(n int64) ([]T, bool) {
 	rb.mu.Unlock()
 	return items, true
 }
+
+// Clear removes all items from the ring buffer.
+func (rb *RingBuffer[T]) Clear() {
+	rb.mu.Lock()
+	rb.content.head = 0
+	rb.content.tail = 0
+	atomic.StoreInt64(&rb.len, 0)
+	rb.mu.Unlock()
+}

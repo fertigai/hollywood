@@ -51,3 +51,4 @@ func (r *Response) PID() *PID         { return r.pid }
 func (r *Response) Shutdown()         {}
 func (r *Response) Start()            {}
 func (r *Response) Invoke([]Envelope) {}
+func (r *Response) ClearMailbox()     {}

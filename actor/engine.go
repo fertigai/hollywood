@@ -305,6 +305,15 @@ func (e *Engine) SendLocal(pid *PID, msg any, sender *PID) {
 	proc.Send(pid, msg, sender)
 }
 
+// ClearMailbox clears all pending messages in the mailbox of the given PID.
+// Messages already dequeued for the current processing batch will still be processed.
+func (e *Engine) ClearMailbox(pid *PID) {
+	proc := e.Registry.get(pid)
+	if proc != nil {
+		proc.ClearMailbox()
+	}
+}
+
 // Subscribe will subscribe the given PID to the event stream.
 func (e *Engine) Subscribe(pid *PID) {
 	e.Send(e.eventStream, eventSub{pid: pid})

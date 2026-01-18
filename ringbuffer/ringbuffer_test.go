@@ -106,6 +106,30 @@ func TestPushFrontWithGrow(t *testing.T) {
 	}
 }
 
+func TestClear(t *testing.T) {
+	rb := New[Item](1024)
+	rb.Push(Item{1})
+	rb.Push(Item{2})
+	rb.Push(Item{3})
+
+	if rb.Len() != 3 {
+		t.Fatalf("expected len 3, got %d", rb.Len())
+	}
+
+	rb.Clear()
+
+	if rb.Len() != 0 {
+		t.Fatalf("expected len 0 after clear, got %d", rb.Len())
+	}
+
+	// Verify we can still push/pop after clear
+	rb.Push(Item{4})
+	item, ok := rb.Pop()
+	if !ok || item.i != 4 {
+		t.Fatal("push/pop after clear failed")
+	}
+}
+
 func TestPopThreadSafety(t *testing.T) {
 	t.Run("Pop should be thread-safe", func(t *testing.T) {
 		testCase := func() {

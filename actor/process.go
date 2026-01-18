@@ -24,6 +24,7 @@ type Processer interface {
 	SendPriority(*PID, any, *PID)
 	Invoke([]Envelope)
 	Shutdown()
+	ClearMailbox()
 }
 
 type process struct {
@@ -211,6 +212,9 @@ func (p *process) SendPriority(_ *PID, msg any, sender *PID) {
 }
 func (p *process) Shutdown() {
 	p.cleanup(nil)
+}
+func (p *process) ClearMailbox() {
+	p.inbox.Clear()
 }
 
 func cleanTrace(stack []byte) []byte {
