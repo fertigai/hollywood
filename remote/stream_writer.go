@@ -9,7 +9,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/anthdm/hollywood/actor"
+	"github.com/fertigai/hollywood/actor"
 	"storj.io/drpc/drpcconn"
 	"storj.io/drpc/drpcmanager"
 	"storj.io/drpc/drpcwire"

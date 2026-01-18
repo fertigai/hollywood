@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/anthdm/hollywood/actor"
+	"github.com/fertigai/hollywood/actor"
 	"github.com/hashicorp/consul/api"
 	"github.com/hashicorp/consul/api/watch"
 )

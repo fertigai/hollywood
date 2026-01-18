@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/anthdm/hollywood/actor"
+	"github.com/fertigai/hollywood/actor"
 	"golang.org/x/exp/maps"
 )
 

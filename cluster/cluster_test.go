@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anthdm/hollywood/actor"
-	"github.com/anthdm/hollywood/remote"
+	"github.com/fertigai/hollywood/actor"
+	"github.com/fertigai/hollywood/remote"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

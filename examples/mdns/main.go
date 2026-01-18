@@ -7,10 +7,10 @@ import (
 	"math/rand"
 	"os"
 
-	"github.com/anthdm/hollywood/actor"
-	"github.com/anthdm/hollywood/examples/mdns/chat"
-	"github.com/anthdm/hollywood/examples/mdns/discovery"
-	"github.com/anthdm/hollywood/remote"
+	"github.com/fertigai/hollywood/actor"
+	"github.com/fertigai/hollywood/examples/mdns/chat"
+	"github.com/fertigai/hollywood/examples/mdns/discovery"
+	"github.com/fertigai/hollywood/remote"
 )
 
 var (

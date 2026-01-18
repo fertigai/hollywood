@@ -4,8 +4,8 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/anthdm/hollywood/actor"
-	"github.com/anthdm/hollywood/examples/trade-engine/types"
+	"github.com/fertigai/hollywood/actor"
+	"github.com/fertigai/hollywood/examples/trade-engine/types"
 )
 
 type priceWatcherActor struct {

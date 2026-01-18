@@ -1,6 +1,6 @@
 syntax = "proto3";
 package main;
-option go_package = "github.com/anthdm/hollywood/_bench/main";
+option go_package = "github.com/fertigai/hollywood/_bench/main";
 
 message Message {
 	string data = 1;

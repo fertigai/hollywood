@@ -9,8 +9,8 @@ import (
 	"slices"
 	"time"
 
-	"github.com/anthdm/hollywood/actor"
-	"github.com/anthdm/hollywood/remote"
+	"github.com/fertigai/hollywood/actor"
+	"github.com/fertigai/hollywood/remote"
 )
 
 // pick a reasonable timeout so nodes of long distance networks (should) work.

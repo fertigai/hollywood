@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/anthdm/hollywood/actor"
+	"github.com/fertigai/hollywood/actor"
 	"github.com/grandcat/zeroconf"
 )
 

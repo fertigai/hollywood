@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"log/slog"
 
-	"github.com/anthdm/hollywood/actor"
+	"github.com/fertigai/hollywood/actor"
 )
 
 type streamDeliver struct {

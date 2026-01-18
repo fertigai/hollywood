@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/anthdm/hollywood/actor"
+	"github.com/fertigai/hollywood/actor"
 )
 
 type Storer interface {

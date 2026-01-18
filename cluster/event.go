@@ -1,6 +1,6 @@
 package cluster
 
-import "github.com/anthdm/hollywood/actor"
+import "github.com/fertigai/hollywood/actor"
 
 // MemberJoinEvent gets triggered each time a new member enters the cluster.
 type MemberJoinEvent struct {

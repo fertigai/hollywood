@@ -1,6 +1,6 @@
 syntax = "proto3";
 package cluster;
-option go_package = "github.com/anthdm/hollywood/cluster";
+option go_package = "github.com/fertigai/hollywood/cluster";
 import "actor.proto";
 
 message CID {

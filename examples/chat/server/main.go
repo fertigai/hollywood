@@ -4,9 +4,9 @@ import (
 	"flag"
 	"log/slog"
 
-	"github.com/anthdm/hollywood/actor"
-	"github.com/anthdm/hollywood/examples/chat/types"
-	"github.com/anthdm/hollywood/remote"
+	"github.com/fertigai/hollywood/actor"
+	"github.com/fertigai/hollywood/examples/chat/types"
+	"github.com/fertigai/hollywood/remote"
 )
 
 type clientMap map[string]*actor.PID

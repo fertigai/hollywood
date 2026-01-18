@@ -6,9 +6,9 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/anthdm/hollywood/actor"
-	"github.com/anthdm/hollywood/examples/remote/msg"
-	"github.com/anthdm/hollywood/remote"
+	"github.com/fertigai/hollywood/actor"
+	"github.com/fertigai/hollywood/examples/remote/msg"
+	"github.com/fertigai/hollywood/remote"
 )
 
 type server struct{}

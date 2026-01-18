@@ -1,4 +1,4 @@
-module github.com/anthdm/hollywood
+module github.com/fertigai/hollywood
 
 go 1.22.12
 

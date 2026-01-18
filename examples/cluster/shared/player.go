@@ -3,8 +3,8 @@ package shared
 import (
 	"fmt"
 
-	"github.com/anthdm/hollywood/actor"
-	"github.com/anthdm/hollywood/remote"
+	"github.com/fertigai/hollywood/actor"
+	"github.com/fertigai/hollywood/remote"
 )
 
 type Player struct{}
