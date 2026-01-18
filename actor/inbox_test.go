@@ -65,7 +65,8 @@ func (m MockProcesser) Start() {}
 func (m MockProcesser) PID() *PID {
 	return nil
 }
-func (m MockProcesser) Send(*PID, any, *PID) {}
+func (m MockProcesser) Send(*PID, any, *PID)         {}
+func (m MockProcesser) SendPriority(*PID, any, *PID) {}
 func (m MockProcesser) Invoke(envelopes []Envelope) {
 	m.processFunc(envelopes)
 }

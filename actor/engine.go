@@ -14,6 +14,7 @@ import (
 type Remoter interface {
 	Address() string
 	Send(*PID, any, *PID)
+	SendPriority(*PID, any, *PID)
 	Start(*Engine) error
 	Stop() *sync.WaitGroup
 }
@@ -155,6 +156,46 @@ func (e *Engine) send(pid *PID, msg any, sender *PID) {
 		return
 	}
 	e.remote.Send(pid, msg, sender)
+}
+
+// SendPriority sends the given message to the given PID with high priority.
+// The message will be placed at the front of the recipient's mailbox.
+func (e *Engine) SendPriority(pid *PID, msg any) {
+	e.sendPriority(pid, msg, nil)
+}
+
+// SendPriorityWithSender sends a priority message with the given sender.
+func (e *Engine) SendPriorityWithSender(pid *PID, msg any, sender *PID) {
+	e.sendPriority(pid, msg, sender)
+}
+
+func (e *Engine) sendPriority(pid *PID, msg any, sender *PID) {
+	if pid == nil {
+		return
+	}
+	if e.isLocalMessage(pid) {
+		e.SendPriorityLocal(pid, msg, sender)
+		return
+	}
+	if e.remote == nil {
+		e.BroadcastEvent(EngineRemoteMissingEvent{Target: pid, Sender: sender, Message: msg})
+		return
+	}
+	e.remote.SendPriority(pid, msg, sender)
+}
+
+// SendPriorityLocal sends a priority message to a local process.
+func (e *Engine) SendPriorityLocal(pid *PID, msg any, sender *PID) {
+	proc := e.Registry.get(pid)
+	if proc == nil {
+		e.BroadcastEvent(DeadLetterEvent{
+			Target:  pid,
+			Message: msg,
+			Sender:  sender,
+		})
+		return
+	}
+	proc.SendPriority(pid, msg, sender)
 }
 
 // SendRepeater is a struct that can be used to send a repeating message to a given PID.

@@ -150,6 +150,17 @@ func (r *Remote) Send(pid *actor.PID, msg any, sender *actor.PID) {
 	})
 }
 
+// SendPriority sends a priority message to the process with the given pid over the network.
+// Priority messages are placed at the front of the recipient's mailbox.
+func (r *Remote) SendPriority(pid *actor.PID, msg any, sender *actor.PID) {
+	r.engine.Send(r.streamRouterPID, &streamDeliver{
+		target:   pid,
+		sender:   sender,
+		msg:      msg,
+		priority: true,
+	})
+}
+
 // Address returns the listen address of the remote.
 func (r *Remote) Address() string {
 	return r.addr

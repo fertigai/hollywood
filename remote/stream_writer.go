@@ -51,6 +51,9 @@ func (s *streamWriter) PID() *actor.PID { return s.pid }
 func (s *streamWriter) Send(_ *actor.PID, msg any, sender *actor.PID) {
 	s.inbox.Send(actor.Envelope{Msg: msg, Sender: sender})
 }
+func (s *streamWriter) SendPriority(_ *actor.PID, msg any, sender *actor.PID) {
+	s.inbox.SendPriority(actor.Envelope{Msg: msg, Sender: sender})
+}
 
 func (s *streamWriter) Invoke(msgs []actor.Envelope) {
 	var (
@@ -85,6 +88,7 @@ func (s *streamWriter) Invoke(msgs []actor.Envelope) {
 			TypeNameIndex: typeID,
 			SenderIndex:   senderID,
 			TargetIndex:   targetID,
+			Priority:      stream.priority,
 		}
 	}
 

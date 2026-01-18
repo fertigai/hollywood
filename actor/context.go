@@ -97,6 +97,12 @@ func (c *Context) Send(pid *PID, msg any) {
 	c.engine.SendWithSender(pid, msg, c.pid)
 }
 
+// SendPriority sends the given message with high priority to the given PID.
+// The message will be placed at the front of the recipient's mailbox.
+func (c *Context) SendPriority(pid *PID, msg any) {
+	c.engine.SendPriorityWithSender(pid, msg, c.pid)
+}
+
 // SendRepeat will send the given message to the given PID each given interval.
 // It will return a SendRepeater struct that can stop the repeating message by calling Stop().
 func (c *Context) SendRepeat(pid *PID, msg any, interval time.Duration) SendRepeater {

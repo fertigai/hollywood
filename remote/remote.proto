@@ -20,6 +20,7 @@ message Message {
 	int32 targetIndex = 2;
 	int32 senderIndex = 3;
 	int32 typeNameIndex = 4;
+	bool priority = 5;
 }
 
 message TestMessage { 

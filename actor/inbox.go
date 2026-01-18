@@ -40,6 +40,7 @@ func NewScheduler(throughput int) Scheduler {
 
 type Inboxer interface {
 	Send(Envelope)
+	SendPriority(Envelope)
 	Start(Processer)
 	Stop() error
 }
@@ -61,6 +62,11 @@ func NewInbox(size int) *Inbox {
 
 func (in *Inbox) Send(msg Envelope) {
 	in.rb.Push(msg)
+	in.schedule()
+}
+
+func (in *Inbox) SendPriority(msg Envelope) {
+	in.rb.PushFront(msg)
 	in.schedule()
 }
 

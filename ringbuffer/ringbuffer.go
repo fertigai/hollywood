@@ -71,6 +71,37 @@ func (rb *RingBuffer[T]) Pop() (T, bool) {
 	return item, true
 }
 
+// PushFront inserts an item at the front of the buffer.
+// The item will be the first one to be popped.
+func (rb *RingBuffer[T]) PushFront(item T) {
+	rb.mu.Lock()
+
+	// Check if buffer is full (need to grow before inserting)
+	if rb.len >= rb.content.mod-1 {
+		size := rb.content.mod * 2
+		newBuff := make([]T, size)
+		// Copy existing items to positions 1, 2, ..., len
+		for i := int64(0); i < rb.len; i++ {
+			idx := (rb.content.head + 1 + i) % rb.content.mod
+			newBuff[i+1] = rb.content.items[idx]
+		}
+		rb.content = &buffer[T]{
+			items: newBuff,
+			head:  0,
+			tail:  rb.len,
+			mod:   size,
+		}
+	}
+
+	// Write at current head position (the empty slot)
+	rb.content.items[rb.content.head] = item
+	// Decrement head to create new empty slot
+	rb.content.head = (rb.content.head - 1 + rb.content.mod) % rb.content.mod
+	atomic.AddInt64(&rb.len, 1)
+
+	rb.mu.Unlock()
+}
+
 func (rb *RingBuffer[T]) PopN(n int64) ([]T, bool) {
 	rb.mu.Lock()
 	if rb.len == 0 {

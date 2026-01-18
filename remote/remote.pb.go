@@ -101,6 +101,7 @@ type Message struct {
 	TargetIndex   int32  `protobuf:"varint,2,opt,name=targetIndex,proto3" json:"targetIndex,omitempty"`
 	SenderIndex   int32  `protobuf:"varint,3,opt,name=senderIndex,proto3" json:"senderIndex,omitempty"`
 	TypeNameIndex int32  `protobuf:"varint,4,opt,name=typeNameIndex,proto3" json:"typeNameIndex,omitempty"`
+	Priority      bool   `protobuf:"varint,5,opt,name=priority,proto3" json:"priority,omitempty"`
 }
 
 func (x *Message) Reset() {
@@ -161,6 +162,13 @@ func (x *Message) GetTypeNameIndex() int32 {
 		return x.TypeNameIndex
 	}
 	return 0
+}
+
+func (x *Message) GetPriority() bool {
+	if x != nil {
+		return x.Priority
+	}
+	return false
 }
 
 type TestMessage struct {

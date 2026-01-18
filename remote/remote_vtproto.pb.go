@@ -82,6 +82,7 @@ func (m *Message) CloneVT() *Message {
 		TargetIndex:   m.TargetIndex,
 		SenderIndex:   m.SenderIndex,
 		TypeNameIndex: m.TypeNameIndex,
+		Priority:      m.Priority,
 	}
 	if rhs := m.Data; rhs != nil {
 		tmpBytes := make([]byte, len(rhs))
@@ -220,6 +221,9 @@ func (this *Message) EqualVT(that *Message) bool {
 		return false
 	}
 	if this.TypeNameIndex != that.TypeNameIndex {
+		return false
+	}
+	if this.Priority != that.Priority {
 		return false
 	}
 	return string(this.unknownFields) == string(that.unknownFields)
@@ -507,6 +511,16 @@ func (m *Message) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.Priority {
+		i--
+		if m.Priority {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x28
+	}
 	if m.TypeNameIndex != 0 {
 		i = encodeVarint(dAtA, i, uint64(m.TypeNameIndex))
 		i--
@@ -715,6 +729,16 @@ func (m *Message) MarshalToSizedBufferVTStrict(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.Priority {
+		i--
+		if m.Priority {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x28
+	}
 	if m.TypeNameIndex != 0 {
 		i = encodeVarint(dAtA, i, uint64(m.TypeNameIndex))
 		i--
@@ -844,6 +868,9 @@ func (m *Message) SizeVT() (n int) {
 	}
 	if m.TypeNameIndex != 0 {
 		n += 1 + sov(uint64(m.TypeNameIndex))
+	}
+	if m.Priority {
+		n += 2
 	}
 	n += len(m.unknownFields)
 	return n
@@ -1190,6 +1217,26 @@ func (m *Message) UnmarshalVT(dAtA []byte) error {
 					break
 				}
 			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Priority", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.Priority = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])

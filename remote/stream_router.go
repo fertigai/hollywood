@@ -8,9 +8,10 @@ import (
 )
 
 type streamDeliver struct {
-	sender *actor.PID
-	target *actor.PID
-	msg    any
+	sender   *actor.PID
+	target   *actor.PID
+	msg      any
+	priority bool
 }
 
 type streamRouter struct {

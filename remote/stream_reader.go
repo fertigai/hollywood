@@ -48,7 +48,11 @@ func (r *streamReader) Receive(stream DRPCRemote_ReceiveStream) error {
 			if len(envelope.Senders) > 0 {
 				sender = envelope.Senders[msg.SenderIndex]
 			}
-			r.remote.engine.SendLocal(target, payload, sender)
+			if msg.Priority {
+				r.remote.engine.SendPriorityLocal(target, payload, sender)
+			} else {
+				r.remote.engine.SendLocal(target, payload, sender)
+			}
 		}
 	}
 

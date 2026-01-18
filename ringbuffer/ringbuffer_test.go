@@ -40,6 +40,72 @@ func TestPushPopN(t *testing.T) {
 	}
 }
 
+func TestPushFront(t *testing.T) {
+	rb := New[Item](1024)
+	rb.Push(Item{1})
+	rb.Push(Item{2})
+	rb.PushFront(Item{0}) // Should be first out
+
+	item, ok := rb.Pop()
+	if !ok {
+		t.Fatal("expected to pop an item")
+	}
+	if item.i != 0 {
+		t.Fatalf("expected 0, got %d", item.i)
+	}
+
+	item, ok = rb.Pop()
+	if !ok {
+		t.Fatal("expected to pop an item")
+	}
+	if item.i != 1 {
+		t.Fatalf("expected 1, got %d", item.i)
+	}
+
+	item, ok = rb.Pop()
+	if !ok {
+		t.Fatal("expected to pop an item")
+	}
+	if item.i != 2 {
+		t.Fatalf("expected 2, got %d", item.i)
+	}
+}
+
+func TestPushFrontWithGrow(t *testing.T) {
+	// Start with a small buffer to force growth
+	rb := New[Item](4)
+	// Fill the buffer
+	rb.Push(Item{1})
+	rb.Push(Item{2})
+	rb.Push(Item{3})
+	// This should trigger growth
+	rb.PushFront(Item{0})
+
+	// Pop and verify order
+	item, ok := rb.Pop()
+	if !ok {
+		t.Fatal("expected to pop an item")
+	}
+	if item.i != 0 {
+		t.Fatalf("expected 0, got %d", item.i)
+	}
+
+	item, _ = rb.Pop()
+	if item.i != 1 {
+		t.Fatalf("expected 1, got %d", item.i)
+	}
+
+	item, _ = rb.Pop()
+	if item.i != 2 {
+		t.Fatalf("expected 2, got %d", item.i)
+	}
+
+	item, _ = rb.Pop()
+	if item.i != 3 {
+		t.Fatalf("expected 3, got %d", item.i)
+	}
+}
+
 func TestPopThreadSafety(t *testing.T) {
 	t.Run("Pop should be thread-safe", func(t *testing.T) {
 		testCase := func() {
